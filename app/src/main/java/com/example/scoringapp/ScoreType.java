@@ -19,6 +19,12 @@ public class ScoreType {
     private int count = -1;
     private int score = -1;
 
+    private TextView nameView;
+    private Button buttonDown;
+    private TextView countView;
+    private Button buttonUp;
+    private TextView scoreView;
+
     public ScoreType(Context context, LinearLayout linearLayout, String name){
         this.context = context;
         this.linearLayout = linearLayout;
@@ -40,17 +46,18 @@ public class ScoreType {
         Button buttonDown = new Button(context);
         buttonDown.setText("-1");
         layout.addView(buttonDown);
+        buttonListener(buttonDown, -1);
 
-        TextView countView = new TextView(context);
-        countView.setText("#");
+        countView.setText(Integer.toString(count));
         layout.addView(countView);
 
         Button buttonUp = new Button(context);
         buttonUp.setText("+1");
         layout.addView(buttonUp);
+        buttonListener(buttonUp, 1);
 
         TextView scoreView = new TextView(context);
-        scoreView.setText("Score: 0"); // calcIncrement(scoringIncrement, count)
+        scoreView.setText("Score: " + calcIncrement(scoringIncrement, count)); // calcIncrement(scoringIncrement, count)
         layout.addView(scoreView);
 
         linearLayout.addView(layout);
@@ -60,11 +67,12 @@ public class ScoreType {
         return increment * count;
     }
 
-    private void buttonListener(Button button, int plusOrMinus){
+    private void buttonListener(Button button, final int plusOrMinus){
         button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-
+                count += plusOrMinus;
+                countView.setText(Integer.toString(count));
             }
         });
     }
