@@ -2,34 +2,41 @@ package com.example.scoringapp;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 public class ScoreType {
 
     private LinearLayout linearLayout;
     private Context context;
-    private String name;
 
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
     private int count = -1;
-    private int score = -1;
+    public int score = -1;
     private int scoringIncrement;
+
+    private boolean switchState = false;
 
     private TextView countView;
     private TextView scoreView;
+
+    private static final String TAP_DATA = "tap count";
+    private static final String SWITCH_DATA = "switch state";
 
 
     public ScoreType(Context context, LinearLayout linearLayout, String name){
         this.context = context;
         this.linearLayout = linearLayout;
-        this.name = name;
 
-        sharedPreferences = context.getSharedPreferences(this.name + "_pref", Context.MODE_PRIVATE);
+        sharedPreferences = context.getSharedPreferences(name + "_pref", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
         countView = new TextView(context);
@@ -85,17 +92,70 @@ public class ScoreType {
         });
     }
 
-    public void saveData(){
-        if (count != -1){
-            editor.putInt(name, count);
+    public void addSwitchScore(String scoringName, int scoringIncrement){
+        this.scoringIncrement = scoringIncrement;
+        score = calcSwitchScore(scoringIncrement, switchState);
+
+        LinearLayout layout = new LinearLayout(context);
+        layout.setOrientation(LinearLayout.HORIZONTAL);
+
+        TextView nameView = new TextView(context);
+        nameView.setText("   " + scoringName + ":         ");
+        layout.addView(nameView);
+
+        Switch aSwitch = new Switch(context);
+        layout.addView(aSwitch);
+        aSwitch.setChecked(switchState);
+        switchListener(aSwitch);
+
+        scoreView.setText("Score: " + score);
+        layout.addView(scoreView);
+
+        linearLayout.addView(layout);
+
+    }
+
+    public void switchListener(Switch aSwitch){
+        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                switchState = isChecked;
+
+                score = calcSwitchScore(scoringIncrement, switchState);
+
+                scoreView.setText("Score: " + score);
+                Log.d("logScoreType", "switch state: " + Boolean.toString(switchState));
+                saveData();
+            }
+        });
+    }
+
+    private int calcSwitchScore(int increment, Boolean isChecked){
+        if (isChecked){
+            return increment;
         }
+
+        else {
+            return 0;
+        }
+    }
+
+    public void saveData(){
+        editor.putInt(TAP_DATA, count);
+        editor.putBoolean(SWITCH_DATA, switchState);
 
         editor.apply();
 
     }
 
     public void loadData(){
-        count = sharedPreferences.getInt(name, 0);
+        count = sharedPreferences.getInt(TAP_DATA, 0);
+        switchState = sharedPreferences.getBoolean(SWITCH_DATA, false);
+    }
+
+    public void clearData(){
+        editor.clear();
     }
 
 
