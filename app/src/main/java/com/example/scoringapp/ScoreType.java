@@ -18,12 +18,11 @@ public class ScoreType {
 
     private int count = -1;
     private int score = -1;
+    private int scoringIncrement;
 
-    private TextView nameView;
-    private Button buttonDown;
     private TextView countView;
-    private Button buttonUp;
     private TextView scoreView;
+
 
     public ScoreType(Context context, LinearLayout linearLayout, String name){
         this.context = context;
@@ -32,9 +31,14 @@ public class ScoreType {
 
         sharedPreferences = context.getSharedPreferences(this.name + "_pref", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
+
+        countView = new TextView(context);
+        scoreView = new TextView(context);
     }
 
     public void addTapScore(String scoringName, int scoringIncrement){
+        this.scoringIncrement = scoringIncrement;
+        score = calcIncrement(scoringIncrement, count);
 
         LinearLayout layout = new LinearLayout(context);
         layout.setOrientation(LinearLayout.HORIZONTAL);
@@ -56,8 +60,7 @@ public class ScoreType {
         layout.addView(buttonUp);
         buttonListener(buttonUp, 1);
 
-        TextView scoreView = new TextView(context);
-        scoreView.setText("Score: " + calcIncrement(scoringIncrement, count)); // calcIncrement(scoringIncrement, count)
+        scoreView.setText("Score: " + score);
         layout.addView(scoreView);
 
         linearLayout.addView(layout);
@@ -72,7 +75,12 @@ public class ScoreType {
             @Override
             public void onClick(View view) {
                 count += plusOrMinus;
+                score = calcIncrement(scoringIncrement, count);
+
                 countView.setText(Integer.toString(count));
+                scoreView.setText("Score: " + score);
+
+                saveData();
             }
         });
     }
