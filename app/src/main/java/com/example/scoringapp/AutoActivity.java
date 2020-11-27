@@ -20,6 +20,8 @@ import java.util.List;
 
 public class AutoActivity extends AppCompatActivity {
 
+    public static String LAUNCH_NEW = "from new Auto";
+
     LinearLayout AutoLayout;
 
     private SharedPreferences sharedPreferences;
@@ -45,9 +47,7 @@ public class AutoActivity extends AppCompatActivity {
 
         totalScoreView = new TextView(this);
 
-        //TODO: make sure that when new is pressed you do an initial save to save default values and so data will actually exist in sharedPref
-
-        sharedPreferences = this.getSharedPreferences(SHARED_PREF_TAG, Context.MODE_PRIVATE);
+        sharedPreferences = this.getSharedPreferences(TeleActivity.class.getSimpleName() + SHARED_PREF_TAG, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
         Intent intent = getIntent();
@@ -102,7 +102,7 @@ public class AutoActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                totalScoreView.setText("Total: " + Integer.toString(findTotalScore()));
+                totalScoreView.setText("Total: " + findTotalScore());
             }
         });
     }
@@ -145,4 +145,17 @@ public class AutoActivity extends AppCompatActivity {
         }
     }
 
+    public void launchTele(View view) {
+        Intent intent = new Intent(this, TeleActivity.class);
+
+        intent.putExtra(LAUNCH_NEW, fromNew);
+
+        startActivity(intent);
+    }
+
+    public void launchHome(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+
+        startActivity(intent);
+    }
 }
