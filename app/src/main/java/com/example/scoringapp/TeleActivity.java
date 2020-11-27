@@ -18,6 +18,10 @@ import java.util.List;
 public class TeleActivity extends AppCompatActivity {
 
     public static String LAUNCH_NEW = "from new Tele";
+    public static String FROM_BACK = "from back";
+
+    private boolean fromNew;
+    private boolean fromBack = false;
 
     LinearLayout TeleLayout;
 
@@ -30,8 +34,6 @@ public class TeleActivity extends AppCompatActivity {
 
     private TextView totalScoreView;
     private int totalScore = 0;
-
-    private boolean fromNew;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +52,13 @@ public class TeleActivity extends AppCompatActivity {
         Intent intent = getIntent();
         fromNew = intent.getBooleanExtra(AutoActivity.LAUNCH_NEW, false);
 
+        // top
+        // top setUp in xml
 
         // middle
         createScoreTypes();
 
-        if (fromNew){
+        if (fromNew && !fromBack){
             clearAllData();
             saveAllData();
         }
@@ -111,7 +115,7 @@ public class TeleActivity extends AppCompatActivity {
         ScoreType wobbleScore = new ScoreType(this, TeleLayout, "WobbleScoe1", true, 1);
         add(wobbleScore);
 
-        ScoreType switchTest = new ScoreType(this, TeleLayout, "SwitchTest1", false, 1);
+        ScoreType switchTest = new ScoreType(this, TeleLayout, "SwitchTest01", false, 1);
         add(switchTest);
 
         ScoreType switchTest1 = new ScoreType(this, TeleLayout, "SwitchTest2", false, 1);
@@ -142,14 +146,19 @@ public class TeleActivity extends AppCompatActivity {
         }
     }
 
-    public void launchTeleBack(View view) {
+    public void launchAutoBack(View view) {
         Intent intent = new Intent(this, AutoActivity.class);
 
-        intent.putExtra(LAUNCH_NEW, false); // need to saved data bc we are going back to activity so we should resest like we coming from "from new"
-        
+        intent.putExtra(FROM_BACK, true); // need to saved data bc we are going back to activity so we should resest like we coming from "from new"
+
         startActivity(intent);
     }
 
     public void launchEnd(View view) {
+        Intent intent = new Intent(this, EndActivity.class);
+
+        intent.putExtra(LAUNCH_NEW, fromNew);
+
+        startActivity(intent);
     }
 }

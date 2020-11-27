@@ -21,6 +21,10 @@ import java.util.List;
 public class AutoActivity extends AppCompatActivity {
 
     public static String LAUNCH_NEW = "from new Auto";
+    public static String FROM_BACK = "from back";
+
+    private boolean fromNew;
+    private boolean fromBack = false;
 
     LinearLayout AutoLayout;
 
@@ -33,8 +37,6 @@ public class AutoActivity extends AppCompatActivity {
 
     private TextView totalScoreView;
     private int totalScore = 0;
-
-    private boolean fromNew;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,12 +54,15 @@ public class AutoActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         fromNew = intent.getBooleanExtra(MainActivity.LAUNCH_NEW, false);
+        fromBack = intent.getBooleanExtra(TeleActivity.FROM_BACK, false);
 
+        // top
+        // top setUp in xml
 
         // middle
         createScoreTypes();
 
-        if (fromNew){
+        if (fromNew && !fromBack){
             clearAllData();
             saveAllData();
         }
