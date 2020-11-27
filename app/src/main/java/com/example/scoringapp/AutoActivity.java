@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,12 +25,14 @@ public class AutoActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
-    private String name = "pref";
+    private String SHARED_PREF_TAG = "_pref";
 
     private List<ScoreType> scoreTypeList;
 
     private TextView totalScoreView;
     private int totalScore = 0;
+
+    private boolean fromNew;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,31 +47,29 @@ public class AutoActivity extends AppCompatActivity {
 
         //TODO: make sure that when new is pressed you do an initial save to save default values and so data will actually exist in sharedPref
 
-        sharedPreferences = this.getSharedPreferences(name, Context.MODE_PRIVATE);
+        sharedPreferences = this.getSharedPreferences(SHARED_PREF_TAG, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
-        ScoreType ringsScore = new ScoreType(this, AutoLayout, "ringsScore");
-        ringsScore.loadData();
-        ringsScore.addTapScore("rings", 5);
-        add(ringsScore);
+        Intent intent = getIntent();
+        fromNew = intent.getBooleanExtra(MainActivity.LAUNCH_NEW, false);
 
-        ScoreType wobbleScore = new ScoreType(this, AutoLayout, "WobbleScoe");
-        wobbleScore.loadData();
-        wobbleScore.addTapScore("wobble", 1);
-        add(wobbleScore);
 
-        ScoreType switchTest = new ScoreType(this, AutoLayout, "SwitchTest");
-        switchTest.loadData();
-        switchTest.addSwitchScore("moved wobble", 1);
-        add(switchTest);
+        // middle
+        createScoreTypes();
 
-        ScoreType switchTest1 = new ScoreType(this, AutoLayout, "SwitchTest1");
-        switchTest1.loadData();
-        switchTest1.addSwitchScore("moved wobble", 1);
-        add(switchTest1);
+        if (fromNew){
+            clearAllData();
+            saveAllData();
+        }
+        else{
+            loadAllData();
+            saveAllData();
+        }
 
-/////////////////////////////////////////////////////////////////////////////
+        displayViews();
 
+
+        // bottom
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.HORIZONTAL);
 
@@ -104,4 +106,43 @@ public class AutoActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void createScoreTypes(){
+        ScoreType ringsScore = new ScoreType(this, AutoLayout, "ringsScore", true, 5);
+        add(ringsScore);
+
+        ScoreType wobbleScore = new ScoreType(this, AutoLayout, "WobbleScoe", true, 1);
+        add(wobbleScore);
+
+        ScoreType switchTest = new ScoreType(this, AutoLayout, "SwitchTest", false, 1);
+        add(switchTest);
+
+        ScoreType switchTest1 = new ScoreType(this, AutoLayout, "SwitchTest1", false, 1);
+        add(switchTest1);
+    }
+
+    public void displayViews(){
+        for (ScoreType scoreType: scoreTypeList){
+            scoreType.addScoreTypeView();
+        }
+    }
+
+    public void saveAllData(){
+        for (ScoreType scoreType: scoreTypeList){
+            scoreType.saveData();
+        }
+    }
+
+    public void loadAllData(){
+        for (ScoreType scoreType: scoreTypeList){
+            scoreType.loadData();
+        }
+    }
+
+    public void clearAllData(){
+        for (ScoreType scoreType: scoreTypeList){
+            scoreType.clearData();
+        }
+    }
+
 }

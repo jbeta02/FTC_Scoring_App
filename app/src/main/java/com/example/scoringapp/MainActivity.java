@@ -25,4 +25,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void launchAutoCont(View view){
+        Intent intent = new Intent(this, AutoActivity.class);
+
+        intent.putExtra(LAUNCH_NEW, false);
+
+        startActivity(intent);
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.example.scoringapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.Gravity;
@@ -19,11 +20,15 @@ public class ScoreType {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
-    private int count = -1;
-    public int score = -1;
-    private int scoringIncrement;
+    private String name;
+    private boolean isTapScore;
 
+    // default values
+    private int count = 0;
+    public int score = 0;
     private boolean switchState = false;
+
+    private int scoringIncrement;
 
     private TextView countView;
     private TextView scoreView;
@@ -32,9 +37,12 @@ public class ScoreType {
     private static final String SWITCH_DATA = "switch state";
 
 
-    public ScoreType(Context context, LinearLayout linearLayout, String name){
+    public ScoreType(Context context, LinearLayout linearLayout, String name, Boolean isTapScore, int scoringIncrement){
         this.context = context;
         this.linearLayout = linearLayout;
+        this.name = name;
+        this.isTapScore = isTapScore;
+        this.scoringIncrement = scoringIncrement;
 
         sharedPreferences = context.getSharedPreferences(name + "_pref", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -43,15 +51,24 @@ public class ScoreType {
         scoreView = new TextView(context);
     }
 
-    public void addTapScore(String scoringName, int scoringIncrement){
-        this.scoringIncrement = scoringIncrement;
+    public void addScoreTypeView(){
+        if (isTapScore){
+            addTapScore();
+        }
+
+        else{
+            addSwitchScore();
+        }
+    }
+
+    public void addTapScore(){
         score = calcIncrement(scoringIncrement, count);
 
         LinearLayout layout = new LinearLayout(context);
         layout.setOrientation(LinearLayout.HORIZONTAL);
 
         TextView nameView = new TextView(context);
-        nameView.setText("   " + scoringName + ":         ");
+        nameView.setText("   " + name + ":         ");
         layout.addView(nameView);
 
         Button buttonDown = new Button(context);
@@ -92,15 +109,14 @@ public class ScoreType {
         });
     }
 
-    public void addSwitchScore(String scoringName, int scoringIncrement){
-        this.scoringIncrement = scoringIncrement;
+    public void addSwitchScore(){
         score = calcSwitchScore(scoringIncrement, switchState);
 
         LinearLayout layout = new LinearLayout(context);
         layout.setOrientation(LinearLayout.HORIZONTAL);
 
         TextView nameView = new TextView(context);
-        nameView.setText("   " + scoringName + ":         ");
+        nameView.setText("   " + name + ":         ");
         layout.addView(nameView);
 
         Switch aSwitch = new Switch(context);
