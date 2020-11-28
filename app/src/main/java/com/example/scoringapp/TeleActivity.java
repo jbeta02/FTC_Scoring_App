@@ -112,18 +112,16 @@ public class TeleActivity extends AppCompatActivity {
         });
     }
 
+    //TODO: create score types and add them to list
     public void createScoreTypes(){
-        ScoreType ringsScore = new ScoreType(this, TeleLayout, "ringsScore1", true, 5);
-        add(ringsScore);
+        ScoreType ringsScoredHigh = new ScoreType(this, TeleLayout, "Rings High.", true, 6);
+        add(ringsScoredHigh);
 
-        ScoreType wobbleScore = new ScoreType(this, TeleLayout, "WobbleScoe1", true, 1);
-        add(wobbleScore);
+        ScoreType ringsScoredMid = new ScoreType(this, TeleLayout, "Rings Mid.", true, 4);
+        add(ringsScoredMid);
 
-        ScoreType switchTest = new ScoreType(this, TeleLayout, "SwitchTest01", false, 1);
-        add(switchTest);
-
-        ScoreType switchTest1 = new ScoreType(this, TeleLayout, "SwitchTest2", false, 1);
-        add(switchTest1);
+        ScoreType ringsScoredLow = new ScoreType(this, TeleLayout, "Rings Low.", true, 2);
+        add(ringsScoredLow);
     }
 
     public void displayViews(){

@@ -113,18 +113,25 @@ public class AutoActivity extends AppCompatActivity {
         });
     }
 
+    //TODO: create score types and add them to list
     public void createScoreTypes(){
-        ScoreType ringsScore = new ScoreType(this, AutoLayout, "ringsScore", true, 5);
-        add(ringsScore);
+        ScoreType wobbleDelivered = new ScoreType(this, AutoLayout, "Wobble Delivered", false, 15);
+        add(wobbleDelivered);
 
-        ScoreType wobbleScore = new ScoreType(this, AutoLayout, "WobbleScoe", true, 1);
-        add(wobbleScore);
+        ScoreType ringsScoredHigh = new ScoreType(this, AutoLayout, "Rings High", true, 12);
+        add(ringsScoredHigh);
 
-        ScoreType switchTest = new ScoreType(this, AutoLayout, "SwitchTest", false, 1);
-        add(switchTest);
+        ScoreType ringsScoredMid = new ScoreType(this, AutoLayout, "Rings Mid", true, 6);
+        add(ringsScoredMid);
 
-        ScoreType switchTest1 = new ScoreType(this, AutoLayout, "SwitchTest1", false, 1);
-        add(switchTest1);
+        ScoreType ringsScoredLow = new ScoreType(this, AutoLayout, "Rings Low", true, 3);
+        add(ringsScoredLow);
+
+        ScoreType powerShot = new ScoreType(this, AutoLayout, "Power Shots", true, 15);
+        add(powerShot);
+
+        ScoreType park = new ScoreType(this, AutoLayout, "parked", false, 5);
+        add(park);
     }
 
     public void displayViews(){

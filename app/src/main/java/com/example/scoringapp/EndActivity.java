@@ -117,18 +117,19 @@ public class EndActivity extends AppCompatActivity {
         });
     }
 
+    //TODO: create score types and add them to list
     public void createScoreTypes(){
-        ScoreType ringsScore = new ScoreType(this, EndLayout, "ringsScore2", true, 5);
-        add(ringsScore);
+        ScoreType wobbleDropped = new ScoreType(this, EndLayout, "Wobble Dropped Drop Zone", false, 20);
+        add(wobbleDropped);
 
-        ScoreType wobbleScore = new ScoreType(this, EndLayout, "WobbleScoe2", true, 1);
-        add(wobbleScore);
+        ScoreType wobbleDropped2 = new ScoreType(this, EndLayout, "Wobble Dropped Start Line", false, 5);
+        add(wobbleDropped2);
 
-        ScoreType switchTest = new ScoreType(this, EndLayout, "SwitchTest02", false, 1);
-        add(switchTest);
+        ScoreType wobbleRings = new ScoreType(this, EndLayout, "Wobble Rings", true, 5);
+        add(wobbleRings);
 
-        ScoreType switchTest1 = new ScoreType(this, EndLayout, "SwitchTest3", false, 1);
-        add(switchTest1);
+        ScoreType powerShot = new ScoreType(this, EndLayout, "Power Shots.", true, 15);
+        add(powerShot);
     }
 
     public void displayViews(){

@@ -68,7 +68,7 @@ public class ScoreType {
         layout.setOrientation(LinearLayout.HORIZONTAL);
 
         TextView nameView = new TextView(context);
-        nameView.setText("   " + name + ":         ");
+        nameView.setText("   " + name + ":     ");
         layout.addView(nameView);
 
         Button buttonDown = new Button(context);
@@ -116,7 +116,7 @@ public class ScoreType {
         layout.setOrientation(LinearLayout.HORIZONTAL);
 
         TextView nameView = new TextView(context);
-        nameView.setText("   " + name + ":         ");
+        nameView.setText("   " + name + ":     ");
         layout.addView(nameView);
 
         Switch aSwitch = new Switch(context);
