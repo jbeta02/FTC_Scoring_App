@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -36,6 +37,8 @@ public class EndActivity extends AppCompatActivity {
     private TextView totalScoreView;
     private int totalScore = 0;
 
+    private Intent fromIntent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,14 +53,18 @@ public class EndActivity extends AppCompatActivity {
         sharedPreferences = this.getSharedPreferences(TeleActivity.class.getSimpleName() + SHARED_PREF_TAG, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
-        Intent intent = getIntent();
-        fromNew = intent.getBooleanExtra(AutoActivity.LAUNCH_NEW, false);
+        fromIntent = getIntent();
+        fromNew = fromIntent.getBooleanExtra(TeleActivity.LAUNCH_NEW, false);
+        fromBack = fromIntent.getBooleanExtra(FinalActivity.FROM_BACK, false);
 
         // top
         // top setUp in xml
 
         // middle
         createScoreTypes();
+
+        Log.d("testEnd", "fromNew: " + fromNew);
+        Log.d("testEnd", "fromBack: " + fromBack);
 
         if (fromNew && !fromBack){
             clearAllData();
@@ -97,6 +104,7 @@ public class EndActivity extends AppCompatActivity {
         for (ScoreType scoreType:scoreTypeList){
             totalScore += scoreType.score;
         }
+        saveTotalScore();
         return totalScore;
     }
 
@@ -147,6 +155,16 @@ public class EndActivity extends AppCompatActivity {
         }
     }
 
+    public void saveTotalScore(){
+        editor.putInt("totalScore", totalScore);
+
+        editor.apply();
+    }
+
+    public int getTotalScore(){
+        return sharedPreferences.getInt("totalScore", 0);
+    }
+
     public void launchTeleBack(View view) {
         Intent intent = new Intent(this, TeleActivity.class);
 
@@ -156,5 +174,11 @@ public class EndActivity extends AppCompatActivity {
     }
 
     public void launchFinal(View view) {
+        Intent intent = new Intent(this, FinalActivity.class);
+        intent.putExtra("AutoTotal", fromIntent.getIntExtra("AutoTotal", 0));
+        intent.putExtra("TeleTotal", fromIntent.getIntExtra("TeleTotal", 0));
+        intent.putExtra("EndTotal", getTotalScore());
+
+        startActivity(intent);
     }
 }

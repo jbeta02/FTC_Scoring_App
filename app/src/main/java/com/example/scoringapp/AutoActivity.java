@@ -84,7 +84,7 @@ public class AutoActivity extends AppCompatActivity {
         layout.addView(calcTotal);
 
         totalScoreView.setGravity(Gravity.RIGHT);
-        totalScoreView.setText("Total: " + Integer.toString(findTotalScore()));
+        totalScoreView.setText("Total: " + findTotalScore());
         layout.addView(totalScoreView);
 
         AutoLayout.addView(layout);
@@ -100,6 +100,7 @@ public class AutoActivity extends AppCompatActivity {
         for (ScoreType scoreType:scoreTypeList){
             totalScore += scoreType.score;
         }
+        saveTotalScore();
         return totalScore;
     }
 
@@ -150,10 +151,21 @@ public class AutoActivity extends AppCompatActivity {
         }
     }
 
+    public void saveTotalScore(){
+        editor.putInt("totalScore", totalScore);
+
+        editor.apply();
+    }
+
+    public int getTotalScore(){
+        return sharedPreferences.getInt("totalScore", 0);
+    }
+
     public void launchTele(View view) {
         Intent intent = new Intent(this, TeleActivity.class);
 
         intent.putExtra(LAUNCH_NEW, fromNew);
+        intent.putExtra("AutoTotal", getTotalScore());
 
         startActivity(intent);
     }

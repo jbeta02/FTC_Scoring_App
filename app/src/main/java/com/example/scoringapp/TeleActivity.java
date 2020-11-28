@@ -35,6 +35,8 @@ public class TeleActivity extends AppCompatActivity {
     private TextView totalScoreView;
     private int totalScore = 0;
 
+    private Intent fromIntent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,8 +51,9 @@ public class TeleActivity extends AppCompatActivity {
         sharedPreferences = this.getSharedPreferences(TeleActivity.class.getSimpleName() + SHARED_PREF_TAG, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
-        Intent intent = getIntent();
-        fromNew = intent.getBooleanExtra(AutoActivity.LAUNCH_NEW, false);
+        fromIntent = getIntent();
+        fromNew = fromIntent.getBooleanExtra(AutoActivity.LAUNCH_NEW, false);
+        fromBack = fromIntent.getBooleanExtra(EndActivity.FROM_BACK, false);
 
         // top
         // top setUp in xml
@@ -96,6 +99,7 @@ public class TeleActivity extends AppCompatActivity {
         for (ScoreType scoreType:scoreTypeList){
             totalScore += scoreType.score;
         }
+        saveTotalScore();
         return totalScore;
     }
 
@@ -146,6 +150,16 @@ public class TeleActivity extends AppCompatActivity {
         }
     }
 
+    public void saveTotalScore(){
+        editor.putInt("totalScore", totalScore);
+
+        editor.apply();
+    }
+
+    public int getTotalScore(){
+        return sharedPreferences.getInt("totalScore", 0);
+    }
+
     public void launchAutoBack(View view) {
         Intent intent = new Intent(this, AutoActivity.class);
 
@@ -158,6 +172,8 @@ public class TeleActivity extends AppCompatActivity {
         Intent intent = new Intent(this, EndActivity.class);
 
         intent.putExtra(LAUNCH_NEW, fromNew);
+        intent.putExtra("AutoTotal", fromIntent.getIntExtra("AutoTotal", 0));
+        intent.putExtra("TeleTotal", getTotalScore());
 
         startActivity(intent);
     }
