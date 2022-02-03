@@ -10,6 +10,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -59,7 +60,15 @@ public class TeleActivity extends AppCompatActivity {
         // top setUp in xml
 
         // middle
-        createScoreTypes();
+        LinearLayout holdViews = new LinearLayout(this);
+        holdViews.setOrientation(LinearLayout.VERTICAL);
+
+        createScoreTypes(holdViews);
+
+        ScrollView scrollView = new ScrollView(this);
+        scrollView.addView(holdViews);
+
+        TeleLayout.addView(scrollView);
 
         if (fromNew && !fromBack){
             clearAllData();
@@ -86,8 +95,7 @@ public class TeleActivity extends AppCompatActivity {
         totalScoreView.setText("Total: " + findTotalScore());
         layout.addView(totalScoreView);
 
-        TeleLayout.addView(layout);
-
+        holdViews.addView(layout);
     }
 
     private void add(ScoreType scoreType){
@@ -113,15 +121,21 @@ public class TeleActivity extends AppCompatActivity {
     }
 
     //TODO: create score types and add them to list
-    public void createScoreTypes(){
-        ScoreType ringsScoredHigh = new ScoreType(this, TeleLayout, "Rings High.", true, 6);
-        add(ringsScoredHigh);
+    public void createScoreTypes(LinearLayout TeleLayout){
+        ScoreType inStorageUnit = new ScoreType(this, TeleLayout, "Freight In Storage Unit", true, 1);
+        add(inStorageUnit);
 
-        ScoreType ringsScoredMid = new ScoreType(this, TeleLayout, "Rings Mid.", true, 4);
-        add(ringsScoredMid);
+        ScoreType onHub1 = new ScoreType(this, TeleLayout, "Freight On Shipping Hub L1", true, 2);
+        add(onHub1);
 
-        ScoreType ringsScoredLow = new ScoreType(this, TeleLayout, "Rings Low.", true, 2);
-        add(ringsScoredLow);
+        ScoreType onHub2 = new ScoreType(this, TeleLayout, "Freight On Shipping Hub L2", true, 4);
+        add(onHub2);
+
+        ScoreType onHub3 = new ScoreType(this, TeleLayout, "Freight On Shipping Hub L3", true, 6);
+        add(onHub3);
+
+        ScoreType sharedHub = new ScoreType(this, TeleLayout, "Freight on Shared", true, 4);
+        add(sharedHub);
     }
 
     public void displayViews(){

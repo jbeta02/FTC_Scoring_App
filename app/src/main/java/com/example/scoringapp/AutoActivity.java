@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -59,8 +60,18 @@ public class AutoActivity extends AppCompatActivity {
         // top
         // top setUp in xml
 
+
         // middle
-        createScoreTypes();
+        LinearLayout holdViews = new LinearLayout(this);
+        holdViews.setOrientation(LinearLayout.VERTICAL);
+
+        createScoreTypes(holdViews);
+
+        ScrollView scrollView = new ScrollView(this);
+        scrollView.addView(holdViews);
+
+        AutoLayout.addView(scrollView);
+
 
         if (fromNew && !fromBack){
             clearAllData();
@@ -87,7 +98,7 @@ public class AutoActivity extends AppCompatActivity {
         totalScoreView.setText("Total: " + findTotalScore());
         layout.addView(totalScoreView);
 
-        AutoLayout.addView(layout);
+        holdViews.addView(layout);
 
     }
 
@@ -114,24 +125,34 @@ public class AutoActivity extends AppCompatActivity {
     }
 
     //TODO: create score types and add them to list
-    public void createScoreTypes(){
-        ScoreType wobbleDelivered = new ScoreType(this, AutoLayout, "Wobble Delivered", false, 15);
-        add(wobbleDelivered);
+    public void createScoreTypes(LinearLayout AutoLayout){
+        ScoreType duckOnLevel = new ScoreType(this, AutoLayout, "Duck On Right Level", false, 10);
+        add(duckOnLevel);
 
-        ScoreType ringsScoredHigh = new ScoreType(this, AutoLayout, "Rings High", true, 12);
-        add(ringsScoredHigh);
+        ScoreType shippingElementOnLevel = new ScoreType(this, AutoLayout, "Shipping Elem On Right Level", false, 20);
+        add(shippingElementOnLevel);
 
-        ScoreType ringsScoredMid = new ScoreType(this, AutoLayout, "Rings Mid", true, 6);
-        add(ringsScoredMid);
+        ScoreType deliveredDuck = new ScoreType(this, AutoLayout, "Delivered Duck", true, 10);
+        add(deliveredDuck);
 
-        ScoreType ringsScoredLow = new ScoreType(this, AutoLayout, "Rings Low", true, 3);
-        add(ringsScoredLow);
+        ScoreType freightInSU = new ScoreType(this, AutoLayout, "Delivered Freight to Storage Unit", true, 2);
+        add(freightInSU);
 
-        ScoreType powerShot = new ScoreType(this, AutoLayout, "Power Shots", true, 15);
-        add(powerShot);
+        ScoreType freightInSH = new ScoreType(this, AutoLayout, "Delivered Freight to Shipping Hub", true, 6);
+        add(freightInSH);
 
-        ScoreType park = new ScoreType(this, AutoLayout, "parked", false, 5);
-        add(park);
+        ScoreType parkedOnSU = new ScoreType(this, AutoLayout, "Parked: On Storage Unit", false, 3);
+        add(parkedOnSU);
+
+        ScoreType parkedInSU = new ScoreType(this, AutoLayout, "Parked: In Storage Unit", false, 6);
+        add(parkedInSU);
+
+        ScoreType parkedOnW = new ScoreType(this, AutoLayout, "Parked: On Warehouse", false, 5);
+        add(parkedOnW);
+
+        ScoreType parkedInW = new ScoreType(this, AutoLayout, "Parked: In Warehouse", false, 10);
+        add(parkedInW);
+
     }
 
     public void displayViews(){

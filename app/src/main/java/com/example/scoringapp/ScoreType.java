@@ -6,9 +6,11 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -68,11 +70,12 @@ public class ScoreType {
         layout.setOrientation(LinearLayout.HORIZONTAL);
 
         TextView nameView = new TextView(context);
-        nameView.setText("   " + name + ":     ");
+        nameView.setText("   " + name + ":  ");
         layout.addView(nameView);
 
         Button buttonDown = new Button(context);
         buttonDown.setText("-1");
+        buttonDown.setLayoutParams(new LinearLayout.LayoutParams(100, 100));
         layout.addView(buttonDown);
         buttonListener(buttonDown, -1);
 
@@ -81,6 +84,7 @@ public class ScoreType {
 
         Button buttonUp = new Button(context);
         buttonUp.setText("+1");
+        buttonUp.setLayoutParams(new LinearLayout.LayoutParams(100, 100));
         layout.addView(buttonUp);
         buttonListener(buttonUp, 1);
 

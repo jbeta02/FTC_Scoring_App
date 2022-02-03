@@ -12,6 +12,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -61,10 +62,16 @@ public class EndActivity extends AppCompatActivity {
         // top setUp in xml
 
         // middle
-        createScoreTypes();
+        LinearLayout holdViews = new LinearLayout(this);
+        holdViews.setOrientation(LinearLayout.VERTICAL);
 
-        Log.d("testEnd", "fromNew: " + fromNew);
-        Log.d("testEnd", "fromBack: " + fromBack);
+        createScoreTypes(holdViews);
+
+        ScrollView scrollView = new ScrollView(this);
+        scrollView.addView(holdViews);
+
+        EndLayout.addView(scrollView);
+
 
         if (fromNew && !fromBack){
             clearAllData();
@@ -91,7 +98,7 @@ public class EndActivity extends AppCompatActivity {
         totalScoreView.setText("Total: " + findTotalScore());
         layout.addView(totalScoreView);
 
-        EndLayout.addView(layout);
+        holdViews.addView(layout);
 
     }
 
@@ -118,18 +125,26 @@ public class EndActivity extends AppCompatActivity {
     }
 
     //TODO: create score types and add them to list
-    public void createScoreTypes(){
-        ScoreType wobbleDropped = new ScoreType(this, EndLayout, "Wobble Dropped Drop Zone", false, 20);
-        add(wobbleDropped);
+    public void createScoreTypes(LinearLayout EndLayout){
+        ScoreType delivered = new ScoreType(this, EndLayout, "Shipping Elem Delivered", false, 6);
+        add(delivered);
 
-        ScoreType wobbleDropped2 = new ScoreType(this, EndLayout, "Wobble Dropped Start Line", false, 5);
-        add(wobbleDropped2);
+        ScoreType balanced = new ScoreType(this, EndLayout, "Shipping Hub Balanced", false, 10);
+        add(balanced);
 
-        ScoreType wobbleRings = new ScoreType(this, EndLayout, "Wobble Rings", true, 5);
-        add(wobbleRings);
+        ScoreType unbalanced = new ScoreType(this, EndLayout, "Shared Hub Unbalanced", false, 20);
+        add(unbalanced);
 
-        ScoreType powerShot = new ScoreType(this, EndLayout, "Power Shots.", true, 15);
-        add(powerShot);
+        ScoreType onWarehouse = new ScoreType(this, EndLayout, "Park: On Warehouse", false, 3);
+        add(onWarehouse);
+
+        ScoreType inWarehouse = new ScoreType(this, EndLayout, "Park: In Warehouse", false, 6);
+        add(inWarehouse);
+
+        ScoreType capped = new ScoreType(this, EndLayout, "Capped", false, 15);
+        add(capped);
+
+
     }
 
     public void displayViews(){
