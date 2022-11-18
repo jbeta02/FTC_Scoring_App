@@ -26,7 +26,7 @@ public class EndActivity extends AppCompatActivity {
     private boolean fromNew;
     private boolean fromBack = false;
 
-    LinearLayout EndLayout;
+    LinearLayout endLayout;
 
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
@@ -45,7 +45,7 @@ public class EndActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_end);
 
-        EndLayout = findViewById(R.id.EndLayout);
+        endLayout = findViewById(R.id.EndLayout);
 
         scoreTypeList = new ArrayList<>();
 
@@ -70,7 +70,7 @@ public class EndActivity extends AppCompatActivity {
         ScrollView scrollView = new ScrollView(this);
         scrollView.addView(holdViews);
 
-        EndLayout.addView(scrollView);
+        endLayout.addView(scrollView);
 
 
         if (fromNew && !fromBack){
@@ -125,26 +125,15 @@ public class EndActivity extends AppCompatActivity {
     }
 
     //TODO: create score types and add them to list
-    public void createScoreTypes(LinearLayout EndLayout){
-        ScoreType delivered = new ScoreType(this, EndLayout, "Shipping Elem Delivered", false, 6);
-        add(delivered);
+    public void createScoreTypes(LinearLayout endLayout){
 
-        ScoreType balanced = new ScoreType(this, EndLayout, "Shipping Hub Balanced", false, 10);
-        add(balanced);
+        add(new ScoreType(this, endLayout, "Junction owned by Cone", true, 2));
 
-        ScoreType unbalanced = new ScoreType(this, EndLayout, "Shared Hub Unbalanced", false, 20);
-        add(unbalanced);
+        add(new ScoreType(this, endLayout, "Junction owned by Beacon", true, 10));
 
-        ScoreType onWarehouse = new ScoreType(this, EndLayout, "Park: On Warehouse", false, 3);
-        add(onWarehouse);
+        add(new ScoreType(this, endLayout, "Parked in Terminal", true, 2));
 
-        ScoreType inWarehouse = new ScoreType(this, EndLayout, "Park: In Warehouse", false, 6);
-        add(inWarehouse);
-
-        ScoreType capped = new ScoreType(this, EndLayout, "Capped", false, 15);
-        add(capped);
-
-
+        add(new ScoreType(this, endLayout, "Completed Circuit", true, 20));
     }
 
     public void displayViews(){
