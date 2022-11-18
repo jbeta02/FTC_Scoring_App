@@ -92,19 +92,19 @@ public class TeleActivity extends GameModeActivity {
     //TODO: create score types and add them to list
     @Override
     public void createScoreTypes(LinearLayout teleLayout){
-        add(new ScoreType(this, teleLayout, "Scored in Terminal", false, 1));
+        add(new ScoreType(this, teleLayout, "Scored in Terminal (tele)", true, 1));
 
-        add(new ScoreType(this, teleLayout, "Scored on ground Junction", false, 2));
+        add(new ScoreType(this, teleLayout, "Scored on ground Junction (tele)", true, 2));
 
-        add(new ScoreType(this, teleLayout, "Scored on low Junction", false, 3));
+        add(new ScoreType(this, teleLayout, "Scored on low Junction (tele)", true, 3));
 
-        add(new ScoreType(this, teleLayout, "Scored on mid Junction", false, 4));
+        add(new ScoreType(this, teleLayout, "Scored on mid Junction", true, 4));
 
-        add(new ScoreType(this, teleLayout, "Scored on high Junction", false, 5));
+        add(new ScoreType(this, teleLayout, "Scored on high Junction", true, 5));
 
     }
 
-    // launch auto auto acivity
+    // launch auto auto activity
     public void launchAutoBack(View view) {
         Intent intent = new Intent(this, AutoActivity.class);
 

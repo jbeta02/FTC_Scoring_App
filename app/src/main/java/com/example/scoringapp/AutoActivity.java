@@ -96,21 +96,21 @@ public class AutoActivity extends GameModeActivity {
     @Override
     public void createScoreTypes(LinearLayout autoLayout){
 
-        add(new ScoreType(this, autoLayout, "Scored in Terminal", false, 1));
+        add(new ScoreType(this, autoLayout, "Scored in Terminal", true, 1));
 
-        add(new ScoreType(this, autoLayout, "Scored on ground Junction", false, 2));
+        add(new ScoreType(this, autoLayout, "Scored on ground Junction", true, 2));
 
-        add(new ScoreType(this, autoLayout, "Scored on low Junction", false, 3));
+        add(new ScoreType(this, autoLayout, "Scored on low Junction", true, 3));
 
-        add(new ScoreType(this, autoLayout, "Scored on mid Junction", false, 4));
+        add(new ScoreType(this, autoLayout, "Scored on mid Junction", true, 4));
 
-        add(new ScoreType(this, autoLayout, "Scored on high Junction", false, 5));
+        add(new ScoreType(this, autoLayout, "Scored on high Junction", true, 5));
 
-        add(new ScoreType(this, autoLayout, "Parked in Terminal or Substation", true, 2));
+        add(new ScoreType(this, autoLayout, "Parked in Terminal or Substation", false, 2));
 
-        add(new ScoreType(this, autoLayout, "Parked in Signal zone", true, 10));
+        add(new ScoreType(this, autoLayout, "Parked in Signal zone", false, 10));
 
-        add(new ScoreType(this, autoLayout, "Parked in Signal zone using team sleeve", true, 20));
+        add(new ScoreType(this, autoLayout, "Parked in Signal zone using team sleeve", false, 20));
 
     }
 

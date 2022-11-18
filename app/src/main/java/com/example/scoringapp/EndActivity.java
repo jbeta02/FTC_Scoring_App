@@ -97,13 +97,13 @@ public class EndActivity extends GameModeActivity {
     @Override
     public void createScoreTypes(LinearLayout endLayout){
 
-        add(new ScoreType(this, endLayout, "Junction owned by Cone", true, 2));
+        add(new ScoreType(this, endLayout, "Junction owned by Cone", false, 2));
 
-        add(new ScoreType(this, endLayout, "Junction owned by Beacon", true, 10));
+        add(new ScoreType(this, endLayout, "Junction owned by Beacon", false, 10));
 
-        add(new ScoreType(this, endLayout, "Parked in Terminal", true, 2));
+        add(new ScoreType(this, endLayout, "Parked in Terminal", false, 2));
 
-        add(new ScoreType(this, endLayout, "Completed Circuit", true, 20));
+        add(new ScoreType(this, endLayout, "Completed Circuit", false, 20));
     }
 
     // to go teleOp activity
