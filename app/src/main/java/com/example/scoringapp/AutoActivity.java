@@ -19,7 +19,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AutoActivity extends AppCompatActivity {
+public class AutoActivity extends GameModeActivity {
 
     public static String LAUNCH_NEW = "from new Auto";
     public static String FROM_BACK = "from back";
@@ -28,16 +28,6 @@ public class AutoActivity extends AppCompatActivity {
     private boolean fromBack = false;
 
     LinearLayout autoLayout;
-
-    private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
-
-    private String SHARED_PREF_TAG = "_pref";
-
-    private List<ScoreType> scoreTypeList;
-
-    private TextView totalScoreView;
-    private int totalScore = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,29 +92,8 @@ public class AutoActivity extends AppCompatActivity {
 
     }
 
-    private void add(ScoreType scoreType){
-        scoreTypeList.add(scoreType);
-    }
-
-    public int findTotalScore(){
-        totalScore = 0;
-        for (ScoreType scoreType:scoreTypeList){
-            totalScore += scoreType.score;
-        }
-        saveTotalScore();
-        return totalScore;
-    }
-
-    private void buttonListener(Button button){
-        button.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                totalScoreView.setText("Total: " + findTotalScore());
-            }
-        });
-    }
-
     //TODO: create score types and add them to list
+    @Override
     public void createScoreTypes(LinearLayout autoLayout){
 
         add(new ScoreType(this, autoLayout, "Scored in Terminal", false, 1));
@@ -145,40 +114,7 @@ public class AutoActivity extends AppCompatActivity {
 
     }
 
-    public void displayViews(){
-        for (ScoreType scoreType: scoreTypeList){
-            scoreType.addScoreTypeView();
-        }
-    }
-
-    public void saveAllData(){
-        for (ScoreType scoreType: scoreTypeList){
-            scoreType.saveData();
-        }
-    }
-
-    public void loadAllData(){
-        for (ScoreType scoreType: scoreTypeList){
-            scoreType.loadData();
-        }
-    }
-
-    public void clearAllData(){
-        for (ScoreType scoreType: scoreTypeList){
-            scoreType.clearData();
-        }
-    }
-
-    public void saveTotalScore(){
-        editor.putInt("totalScore", totalScore);
-
-        editor.apply();
-    }
-
-    public int getTotalScore(){
-        return sharedPreferences.getInt("totalScore", 0);
-    }
-
+    // go to teleOp activity
     public void launchTele(View view) {
         Intent intent = new Intent(this, TeleActivity.class);
 
@@ -188,6 +124,7 @@ public class AutoActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    // go to home activity
     public void launchHome(View view) {
         Intent intent = new Intent(this, MainActivity.class);
 

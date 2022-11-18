@@ -18,7 +18,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EndActivity extends AppCompatActivity {
+public class EndActivity extends GameModeActivity {
 
     public static String LAUNCH_NEW = "from new Tele";
     public static String FROM_BACK = "from back";
@@ -27,16 +27,6 @@ public class EndActivity extends AppCompatActivity {
     private boolean fromBack = false;
 
     LinearLayout endLayout;
-
-    private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
-
-    private String SHARED_PREF_TAG = "_pref";
-
-    private List<ScoreType> scoreTypeList;
-
-    private TextView totalScoreView;
-    private int totalScore = 0;
 
     private Intent fromIntent;
 
@@ -102,29 +92,9 @@ public class EndActivity extends AppCompatActivity {
 
     }
 
-    private void add(ScoreType scoreType){
-        scoreTypeList.add(scoreType);
-    }
-
-    public int findTotalScore(){
-        totalScore = 0;
-        for (ScoreType scoreType:scoreTypeList){
-            totalScore += scoreType.score;
-        }
-        saveTotalScore();
-        return totalScore;
-    }
-
-    private void buttonListener(Button button){
-        button.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                totalScoreView.setText("Total: " + findTotalScore());
-            }
-        });
-    }
 
     //TODO: create score types and add them to list
+    @Override
     public void createScoreTypes(LinearLayout endLayout){
 
         add(new ScoreType(this, endLayout, "Junction owned by Cone", true, 2));
@@ -136,40 +106,7 @@ public class EndActivity extends AppCompatActivity {
         add(new ScoreType(this, endLayout, "Completed Circuit", true, 20));
     }
 
-    public void displayViews(){
-        for (ScoreType scoreType: scoreTypeList){
-            scoreType.addScoreTypeView();
-        }
-    }
-
-    public void saveAllData(){
-        for (ScoreType scoreType: scoreTypeList){
-            scoreType.saveData();
-        }
-    }
-
-    public void loadAllData(){
-        for (ScoreType scoreType: scoreTypeList){
-            scoreType.loadData();
-        }
-    }
-
-    public void clearAllData(){
-        for (ScoreType scoreType: scoreTypeList){
-            scoreType.clearData();
-        }
-    }
-
-    public void saveTotalScore(){
-        editor.putInt("totalScore", totalScore);
-
-        editor.apply();
-    }
-
-    public int getTotalScore(){
-        return sharedPreferences.getInt("totalScore", 0);
-    }
-
+    // to go teleOp activity
     public void launchTeleBack(View view) {
         Intent intent = new Intent(this, TeleActivity.class);
 
@@ -178,6 +115,7 @@ public class EndActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    // go to final activity
     public void launchFinal(View view) {
         Intent intent = new Intent(this, FinalActivity.class);
         intent.putExtra("AutoTotal", fromIntent.getIntExtra("AutoTotal", 0));
