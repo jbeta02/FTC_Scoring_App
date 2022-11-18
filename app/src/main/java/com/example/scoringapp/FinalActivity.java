@@ -30,6 +30,7 @@ public class FinalActivity extends AppCompatActivity {
         int endScore = intent.getIntExtra("EndTotal", 0);
         int finalScore = autoScore + teleScore + endScore;
 
+        // display final scores
         addView("Auto Score", linearLayout, autoScore);
         addView("Tele Score", linearLayout, teleScore);
         addView("End Score", linearLayout, endScore);
@@ -37,6 +38,7 @@ public class FinalActivity extends AppCompatActivity {
 
     }
 
+    // add score result view
     private void addView(String name, LinearLayout linearLayout, int score){
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.HORIZONTAL);
@@ -52,6 +54,7 @@ public class FinalActivity extends AppCompatActivity {
         linearLayout.addView(layout);
     }
 
+    // go back to Endgame activity
     public void launchEnd(View view) {
         Intent intent = new Intent(this, EndActivity.class);
 
@@ -60,12 +63,14 @@ public class FinalActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    // go back to Home activity
     public void launchHome(View view) {
         Intent intent = new Intent(this, MainActivity.class);
 
         startActivity(intent);
     }
 
+    // go back to Auto activity
     public void viewAuto(View view) {
         Intent intent = new Intent(this, AutoActivity.class);
 
@@ -74,6 +79,7 @@ public class FinalActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    // go back to TeleOp activity
     public void viewTele(View view) {
         Intent intent = new Intent(this, TeleActivity.class);
 
@@ -82,6 +88,7 @@ public class FinalActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    // go back to Endgame activity
     public void viewEnd(View view) {
         Intent intent = new Intent(this, EndActivity.class);
 

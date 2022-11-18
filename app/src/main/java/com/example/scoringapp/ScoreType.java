@@ -14,6 +14,7 @@ import android.widget.ScrollView;
 import android.widget.Switch;
 import android.widget.TextView;
 
+// Use to define a way to score im the game
 public class ScoreType {
 
     private LinearLayout linearLayout;
@@ -53,16 +54,20 @@ public class ScoreType {
         scoreView = new TextView(context);
     }
 
+    // define which type of score type to use
     public void addScoreTypeView(){
+        // use a incremental score type
         if (isTapScore){
             addTapScore();
         }
 
+        // use a switch (true/false) score type
         else{
             addSwitchScore();
         }
     }
 
+    // create layout for increment score type
     public void addTapScore(){
         score = calcIncrement(scoringIncrement, count);
 
@@ -94,10 +99,12 @@ public class ScoreType {
         linearLayout.addView(layout);
     }
 
+    // calc score
     private int calcIncrement(int increment, int count){
         return increment * count;
     }
 
+    // listen for button presses
     private void buttonListener(Button button, final int plusOrMinus){
         button.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -113,6 +120,7 @@ public class ScoreType {
         });
     }
 
+    // layout for switch score type
     public void addSwitchScore(){
         score = calcSwitchScore(scoringIncrement, switchState);
 
@@ -135,6 +143,7 @@ public class ScoreType {
 
     }
 
+    // listen for switch state changes
     public void switchListener(Switch aSwitch){
         aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
@@ -151,6 +160,7 @@ public class ScoreType {
         });
     }
 
+    // calc score for switch
     private int calcSwitchScore(int increment, Boolean isChecked){
         if (isChecked){
             return increment;
@@ -161,6 +171,7 @@ public class ScoreType {
         }
     }
 
+    // save data for later usage
     public void saveData(){
         editor.putInt(TAP_DATA, count);
         editor.putBoolean(SWITCH_DATA, switchState);
@@ -169,11 +180,13 @@ public class ScoreType {
 
     }
 
+    // load data be accessing sharedPrefs
     public void loadData(){
         count = sharedPreferences.getInt(TAP_DATA, 0);
         switchState = sharedPreferences.getBoolean(SWITCH_DATA, false);
     }
 
+    // clear all saved data
     public void clearData(){
         editor.clear();
     }

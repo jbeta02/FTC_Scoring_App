@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    // start next activity and specific that it was launched from new button so clear old values
     public void launchAutoNew(View view){
         Intent intent = new Intent(this, AutoActivity.class);
 
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    // start next activity and specific that it was not launched from new button so keep old values
     public void launchAutoCont(View view){
         Intent intent = new Intent(this, AutoActivity.class);
 
