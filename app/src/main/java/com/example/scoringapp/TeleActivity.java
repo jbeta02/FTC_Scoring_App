@@ -24,7 +24,7 @@ public class TeleActivity extends AppCompatActivity {
     private boolean fromNew;
     private boolean fromBack = false;
 
-    LinearLayout TeleLayout;
+    LinearLayout teleLayout;
 
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
@@ -43,7 +43,7 @@ public class TeleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tele);
 
-        TeleLayout = findViewById(R.id.TeleLayout);
+        teleLayout = findViewById(R.id.TeleLayout);
 
         scoreTypeList = new ArrayList<>();
 
@@ -68,7 +68,7 @@ public class TeleActivity extends AppCompatActivity {
         ScrollView scrollView = new ScrollView(this);
         scrollView.addView(holdViews);
 
-        TeleLayout.addView(scrollView);
+        teleLayout.addView(scrollView);
 
         if (fromNew && !fromBack){
             clearAllData();
@@ -121,21 +121,17 @@ public class TeleActivity extends AppCompatActivity {
     }
 
     //TODO: create score types and add them to list
-    public void createScoreTypes(LinearLayout TeleLayout){
-        ScoreType inStorageUnit = new ScoreType(this, TeleLayout, "Freight In Storage Unit", true, 1);
-        add(inStorageUnit);
+    public void createScoreTypes(LinearLayout teleLayout){
+        add(new ScoreType(this, teleLayout, "Scored in Terminal", false, 1));
 
-        ScoreType onHub1 = new ScoreType(this, TeleLayout, "Freight On Shipping Hub L1", true, 2);
-        add(onHub1);
+        add(new ScoreType(this, teleLayout, "Scored on ground Junction", false, 2));
 
-        ScoreType onHub2 = new ScoreType(this, TeleLayout, "Freight On Shipping Hub L2", true, 4);
-        add(onHub2);
+        add(new ScoreType(this, teleLayout, "Scored on low Junction", false, 3));
 
-        ScoreType onHub3 = new ScoreType(this, TeleLayout, "Freight On Shipping Hub L3", true, 6);
-        add(onHub3);
+        add(new ScoreType(this, teleLayout, "Scored on mid Junction", false, 4));
 
-        ScoreType sharedHub = new ScoreType(this, TeleLayout, "Freight on Shared", true, 4);
-        add(sharedHub);
+        add(new ScoreType(this, teleLayout, "Scored on high Junction", false, 5));
+
     }
 
     public void displayViews(){
