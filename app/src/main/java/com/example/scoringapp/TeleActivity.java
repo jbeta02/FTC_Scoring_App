@@ -98,9 +98,9 @@ public class TeleActivity extends GameModeActivity {
 
         add(new ScoreType(this, teleLayout, "Scored on low Junction (tele)", true, 3));
 
-        add(new ScoreType(this, teleLayout, "Scored on mid Junction", true, 4));
+        add(new ScoreType(this, teleLayout, "Scored on mid Junction (tele)", true, 4));
 
-        add(new ScoreType(this, teleLayout, "Scored on high Junction", true, 5));
+        add(new ScoreType(this, teleLayout, "Scored on high Junction (tele)", true, 5));
 
     }
 
