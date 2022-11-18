@@ -27,7 +27,7 @@ public class AutoActivity extends AppCompatActivity {
     private boolean fromNew;
     private boolean fromBack = false;
 
-    LinearLayout AutoLayout;
+    LinearLayout autoLayout;
 
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
@@ -44,7 +44,7 @@ public class AutoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auto);
 
-        AutoLayout = findViewById(R.id.AutoLayout);
+        autoLayout = findViewById(R.id.AutoLayout);
 
         scoreTypeList = new ArrayList<>();
 
@@ -70,7 +70,7 @@ public class AutoActivity extends AppCompatActivity {
         ScrollView scrollView = new ScrollView(this);
         scrollView.addView(holdViews);
 
-        AutoLayout.addView(scrollView);
+        autoLayout.addView(scrollView);
 
 
         if (fromNew && !fromBack){
@@ -125,33 +125,23 @@ public class AutoActivity extends AppCompatActivity {
     }
 
     //TODO: create score types and add them to list
-    public void createScoreTypes(LinearLayout AutoLayout){
-        ScoreType duckOnLevel = new ScoreType(this, AutoLayout, "Duck On Right Level", false, 10);
-        add(duckOnLevel);
+    public void createScoreTypes(LinearLayout autoLayout){
 
-        ScoreType shippingElementOnLevel = new ScoreType(this, AutoLayout, "Shipping Elem On Right Level", false, 20);
-        add(shippingElementOnLevel);
+        add(new ScoreType(this, autoLayout, "Scored in Terminal", false, 1));
 
-        ScoreType deliveredDuck = new ScoreType(this, AutoLayout, "Delivered Duck", true, 10);
-        add(deliveredDuck);
+        add(new ScoreType(this, autoLayout, "Scored on ground Junction", false, 2));
 
-        ScoreType freightInSU = new ScoreType(this, AutoLayout, "Delivered Freight to Storage Unit", true, 2);
-        add(freightInSU);
+        add(new ScoreType(this, autoLayout, "Scored on low Junction", false, 3));
 
-        ScoreType freightInSH = new ScoreType(this, AutoLayout, "Delivered Freight to Shipping Hub", true, 6);
-        add(freightInSH);
+        add(new ScoreType(this, autoLayout, "Scored on mid Junction", false, 4));
 
-        ScoreType parkedOnSU = new ScoreType(this, AutoLayout, "Parked: On Storage Unit", false, 3);
-        add(parkedOnSU);
+        add(new ScoreType(this, autoLayout, "Scored on high Junction", false, 5));
 
-        ScoreType parkedInSU = new ScoreType(this, AutoLayout, "Parked: In Storage Unit", false, 6);
-        add(parkedInSU);
+        add(new ScoreType(this, autoLayout, "Parked in Terminal or Substation", true, 2));
 
-        ScoreType parkedOnW = new ScoreType(this, AutoLayout, "Parked: On Warehouse", false, 5);
-        add(parkedOnW);
+        add(new ScoreType(this, autoLayout, "Parked in Signal zone", true, 10));
 
-        ScoreType parkedInW = new ScoreType(this, AutoLayout, "Parked: In Warehouse", false, 10);
-        add(parkedInW);
+        add(new ScoreType(this, autoLayout, "Parked in Signal zone using team sleeve", true, 20));
 
     }
 
