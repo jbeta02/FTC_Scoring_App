@@ -18,5 +18,5 @@ Finally there is a final score activity to easily display the final score from a
 ![Screenshot_20221119-172039 1](https://user-images.githubusercontent.com/55860847/202878269-6bfd0333-bc09-48d0-88d2-cd7f076e12e8.png)
 
 |1|2|
-|__|__|
+|----|----|
 |a|b|
